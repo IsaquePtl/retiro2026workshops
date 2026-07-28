@@ -208,16 +208,17 @@ export default function Home() {
           <section className="space-y-3 border-t border-white/10 pt-4">
             <div className="space-y-1.5">
               <h2 className="text-sm font-semibold text-white">
-                Enviar pergunta para o momento da roda de conversa
+                Perguntas para o momento da roda de conversa
               </h2>
               <p className="text-xs leading-5 text-white/70">
-                Esta roda de conversa será um momento sobre{" "}
-                <span className="font-medium text-white/90">Fé racional</span>:
-                um espaço seguro para fazeres perguntas que talvez tenhas medo ou
-                receio de colocar.
-              </p>
-              <p className="text-xs leading-5 text-white/70">
-                A pergunta é anónima. Podes ser honesto/a!
+                O nosso tema será{" "}
+                <span className="font-medium text-white/90">Fé Racional</span>:
+                um espaço para pensarmos juntos e percebermos que fazer perguntas
+                difíceis não é falta de fé, mas sim uma forma de a fazer crescer.
+                Este é o lugar certo para fazeres perguntas que talvez tenhas medo
+                ou receio de colocar. Escreve a tua dúvida abaixo. O formulário é
+                anónimo, por isso sente-te livre para seres o mais honesto/a
+                possível!
               </p>
             </div>
 
