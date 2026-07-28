@@ -10,3 +10,5 @@ npm-debug.log*
 *.mp4
 NOVADATA_STR MOTION.mp4
 STR.png
+.vercel
+.env*
