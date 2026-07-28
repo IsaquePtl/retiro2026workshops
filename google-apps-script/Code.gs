@@ -36,6 +36,16 @@ function doPost(e) {
       });
     }
 
+    if (body.action === "clear") {
+      clearData_();
+      return jsonResponse_({
+        ok: true,
+        message: "Dados limpos com sucesso.",
+        updatedAt: new Date().toISOString(),
+        ...getResultsPayload_(),
+      });
+    }
+
     return jsonResponse_({
       ok: false,
       error: "Acao invalida.",
@@ -188,6 +198,37 @@ function setup() {
   } catch (error) {
     Logger.log("Setup concluido sem UI: " + spreadsheet.getUrl());
   }
+}
+
+/**
+ * Limpa votos e perguntas, mantendo o visual das tabs.
+ * Corre no editor: dropdown -> clearData -> Run
+ */
+function clearData() {
+  clearData_();
+
+  try {
+    SpreadsheetApp.getUi().alert(
+      "Dados limpos",
+      "Votos e perguntas foram apagados.\nAtualiza a Google Sheet no browser.",
+      SpreadsheetApp.getUi().ButtonSet.OK,
+    );
+  } catch (error) {
+    Logger.log("Dados limpos sem UI.");
+  }
+}
+
+function clearData_() {
+  ensureDataSheets_();
+  buildVotesSheet_(getVotesSheet_());
+  buildQuestionsSheet_(getQuestionsSheet_());
+
+  const resumo = getSpreadsheet_().getSheetByName(RESUMO_SHEET_NAME);
+  if (resumo) {
+    buildResumoSheet_(resumo);
+  }
+
+  SpreadsheetApp.flush();
 }
 
 function handleVote_(body) {

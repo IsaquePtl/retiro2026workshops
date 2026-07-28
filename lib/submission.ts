@@ -2,9 +2,9 @@
 
 import { useSyncExternalStore } from "react";
 
-const SUBMISSION_KEY_STORAGE = "retiro-submission-key-v7";
-const VOTE_SENT_STORAGE = "retiro-vote-sent-v7";
-const QUESTION_SENT_STORAGE = "retiro-question-sent-v7";
+const SUBMISSION_KEY_STORAGE = "retiro-submission-key-v8";
+const VOTE_SENT_STORAGE = "retiro-vote-sent-v8";
+const QUESTION_SENT_STORAGE = "retiro-question-sent-v8";
 
 const listeners = new Set<() => void>();
 
