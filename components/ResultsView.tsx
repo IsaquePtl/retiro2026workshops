@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { BrandHeader } from "@/components/BrandHeader";
 import type { ResultsPayload } from "@/lib/google-apps-script";
 
 type ResultsState = ResultsPayload | null;
@@ -23,14 +24,20 @@ function formatTime(value: string | null | undefined) {
   });
 }
 
-export default function ResultsPage() {
+type ResultsViewProps = {
+  accessToken: string;
+};
+
+export function ResultsView({ accessToken }: ResultsViewProps) {
   const [results, setResults] = useState<ResultsState>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   const loadResults = useCallback(async () => {
     try {
-      const response = await fetch("/api/results", { cache: "no-store" });
+      const response = await fetch(`/api/results?token=${encodeURIComponent(accessToken)}`, {
+        cache: "no-store",
+      });
       const payload = (await response.json()) as ResultsPayload;
 
       if (!response.ok || !payload.ok) {
@@ -48,7 +55,7 @@ export default function ResultsPage() {
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, [accessToken]);
 
   useEffect(() => {
     const timeoutId = window.setTimeout(() => {
@@ -68,60 +75,51 @@ export default function ResultsPage() {
   const maxVotes = results?.ranking[0]?.votes || 1;
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-black">
-      <div className="absolute inset-0">
+    <main className="relative min-h-screen overflow-x-hidden">
+      <div className="fixed inset-0 -z-10">
         <video
-          className="h-full w-full object-cover"
+          className="h-full w-full object-cover blur-[2px] scale-105"
           autoPlay
           muted
           loop
           playsInline
-          poster="/str.png"
+          preload="auto"
         >
           <source src="/api/media/video" type="video/mp4" />
         </video>
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-20"
-          style={{ backgroundImage: "url('/str.png')" }}
-        />
-        <div className="absolute inset-0 bg-black/25" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/25 to-black/70" />
+        <div className="absolute inset-0 bg-black/20" />
       </div>
 
-      <section className="relative z-10 mx-auto flex min-h-screen w-full max-w-5xl flex-col gap-5 px-4 py-8 md:py-12">
-        <div className="rounded-[24px] border border-white/15 bg-black/25 p-4 shadow-2xl backdrop-blur-md md:p-6">
-          <div className="flex flex-wrap items-end justify-between gap-3">
+      <section className="relative z-10 mx-auto flex w-full max-w-5xl flex-col gap-4 px-4 pb-10 pt-2">
+        <BrandHeader compact />
+
+        <div className="relative mt-6 sm:mt-8">
+          <div className="relative z-10 rounded-[24px] border border-white/15 bg-black/35 p-4 shadow-2xl backdrop-blur-md md:p-6">
+          <div className="flex items-center justify-between gap-3">
             <div>
-              <p className="text-xs uppercase tracking-[0.25em] text-amber-300">
+              <p className="text-[10px] uppercase tracking-[0.25em] text-amber-300">
                 Em tempo real
               </p>
-              <h1 className="mt-2 text-2xl font-semibold text-white md:text-3xl">
-                Resultados
-              </h1>
-              <p className="mt-2 max-w-xl text-sm text-white/70">
-                Top 2 dos workshops e todas as perguntas da roda de conversa.
-              </p>
+              <h1 className="text-xl font-semibold text-white">Resultados</h1>
             </div>
-            <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-right">
-              <p className="text-xs text-white/55">Respostas</p>
-              <p className="text-3xl font-bold text-white">
+            <div className="text-right">
+              <p className="text-[10px] text-white/55">Respostas</p>
+              <p className="text-2xl font-bold leading-none text-white">
                 {results?.totalResponses ?? (isLoading ? "…" : 0)}
               </p>
             </div>
+          </div>
           </div>
         </div>
 
         {error ? (
           <div className="rounded-[24px] border border-red-400/30 bg-red-400/10 p-4 text-sm text-red-100">
             {error}
-            <p className="mt-2 text-xs text-red-100/80">
-              Se acabaste de atualizar o Apps Script, faz um novo deploy da Web App.
-            </p>
           </div>
         ) : null}
 
         <div className="grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
-          <section className="rounded-[24px] border border-white/15 bg-black/25 p-4 shadow-2xl backdrop-blur-md md:p-6">
+          <section className="rounded-[24px] border border-white/15 bg-black/35 p-4 shadow-2xl backdrop-blur-md md:p-6">
             <h2 className="text-sm font-semibold uppercase tracking-[0.2em] text-amber-300">
               Top 2 atual
             </h2>
@@ -176,7 +174,7 @@ export default function ResultsPage() {
             </div>
           </section>
 
-          <section className="rounded-[24px] border border-white/15 bg-black/25 p-4 shadow-2xl backdrop-blur-md md:p-6">
+          <section className="rounded-[24px] border border-white/15 bg-black/35 p-4 shadow-2xl backdrop-blur-md md:p-6">
             <div className="flex items-center justify-between gap-3">
               <h2 className="text-sm font-semibold uppercase tracking-[0.2em] text-white/80">
                 Perguntas
@@ -206,7 +204,7 @@ export default function ResultsPage() {
           </section>
         </div>
 
-        <p className="text-center text-xs text-white/45">
+        <p className="pb-4 text-center text-xs text-white/45">
           Atualiza sozinho a cada 10 segundos
           {results?.updatedAt ? ` · ${formatTime(results.updatedAt)}` : ""}
         </p>

@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useMemo, useState } from "react";
+import { BrandHeader } from "@/components/BrandHeader";
 import {
   getSubmissionKey,
   markQuestionSubmitted,
@@ -19,7 +20,6 @@ export default function Home() {
   const [question, setQuestion] = useState("");
   const [voteSubmitted, setVoteSubmitted] = useState(false);
   const [questionSubmitted, setQuestionSubmitted] = useState(false);
-  const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isSending, setIsSending] = useState(false);
 
@@ -43,7 +43,6 @@ export default function Home() {
 
   function toggleTopic(topic: string) {
     setError(null);
-    setMessage(null);
 
     setSelectedTopics((current) => {
       if (current.includes(topic)) {
@@ -73,7 +72,6 @@ export default function Home() {
 
     setIsSending(true);
     setError(null);
-    setMessage(null);
 
     try {
       const submissionKey = getSubmissionKey();
@@ -130,8 +128,6 @@ export default function Home() {
         setQuestionSubmitted(true);
         setQuestion("");
       }
-
-      setMessage("Enviado com sucesso. Obrigado!");
     } catch (submitError) {
       const nextMessage =
         submitError instanceof Error
@@ -144,31 +140,29 @@ export default function Home() {
   }
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-black">
-      <div className="absolute inset-0">
+    <main className="relative min-h-screen overflow-x-hidden">
+      <div className="fixed inset-0 -z-10">
         <video
-          className="h-full w-full object-cover"
+          className="h-full w-full object-cover blur-[2px] scale-105"
           autoPlay
           muted
           loop
           playsInline
-          poster="/str.png"
+          preload="auto"
         >
           <source src="/api/media/video" type="video/mp4" />
         </video>
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-20"
-          style={{ backgroundImage: "url('/str.png')" }}
-        />
-        <div className="absolute inset-0 bg-black/25" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/20 to-black/55" />
+        <div className="absolute inset-0 bg-black/20" />
       </div>
 
-      <section className="relative z-10 flex min-h-screen items-end justify-center px-4 pb-8 pt-24 md:items-center md:py-12">
-        <form
-          onSubmit={handleSubmit}
-          className="w-full max-w-xl space-y-5 rounded-[24px] border border-white/15 bg-black/25 p-4 shadow-2xl backdrop-blur-md md:p-6"
-        >
+      <section className="relative z-10 mx-auto flex w-full max-w-xl flex-col px-4 pb-10 pt-2">
+        <BrandHeader />
+
+        <div className="relative mt-6 sm:mt-8">
+          <form
+            onSubmit={handleSubmit}
+            className="relative z-10 mb-2 w-full space-y-4 rounded-[24px] border border-white/15 bg-black/35 p-4 shadow-2xl backdrop-blur-md sm:space-y-5 sm:p-6"
+          >
           <section className="space-y-3">
             <div className="space-y-1">
               <div className="flex items-end justify-between gap-3">
@@ -211,7 +205,7 @@ export default function Home() {
             </div>
           </section>
 
-          <section className="space-y-3 border-t border-white/10 pt-5">
+          <section className="space-y-3 border-t border-white/10 pt-4">
             <div className="space-y-1">
               <h2 className="text-sm font-semibold text-white">Enviar pergunta</h2>
               <p className="text-xs leading-5 text-white/70">
@@ -225,7 +219,6 @@ export default function Home() {
               onChange={(event) => {
                 setQuestion(event.target.value);
                 setError(null);
-                setMessage(null);
               }}
               rows={4}
               maxLength={500}
@@ -246,15 +239,9 @@ export default function Home() {
             </div>
           ) : null}
 
-          {message ? (
-            <div className="rounded-2xl border border-emerald-400/30 bg-emerald-400/10 p-3 text-sm text-emerald-100">
-              {message}
-            </div>
-          ) : null}
-
           {alreadyDone ? (
             <div className="rounded-2xl border border-emerald-400/30 bg-emerald-400/10 p-3 text-sm text-emerald-100">
-              Já enviaste neste dispositivo. Obrigado!
+              Resposta enviada. Obrigado!
             </div>
           ) : (
             <button
@@ -265,7 +252,8 @@ export default function Home() {
               {isSending ? "A enviar..." : "Enviar"}
             </button>
           )}
-        </form>
+          </form>
+        </div>
       </section>
     </main>
   );

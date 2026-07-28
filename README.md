@@ -86,10 +86,14 @@ Depois de atualizar o `Code.gs`, corre uma vez a funcao `setup` no Apps Script p
 3. Deploy
 
 URLs:
-- Formulario: `/`
-- Resultados: `/resultados`
+- Formulario (publico): `/`
+- Resultados (so lideres): `/r/SEU_TOKEN_SECRETO`
 
-Nota: o video local e demasiado grande para GitHub/Vercel (>100MB), por isso fica so em desenvolvimento. Em producao a pagina usa a imagem `public/str.png` como fundo.
+O link de resultados nao aparece em lado nenhum do formulario.
+Partilha esse URL apenas com a equipa. Sem o token certo, a pagina responde 404.
+
+Define `RESULTS_ACCESS_TOKEN` no `.env.local` e na Vercel.
+
 
 ## Notas
 
