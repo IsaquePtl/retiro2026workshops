@@ -3,6 +3,5 @@ node_modules
 .env
 .env.local
 .env.production
-*.mp4
 NOVADATA_STR MOTION.mp4
 STR.png

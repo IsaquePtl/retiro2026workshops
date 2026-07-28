@@ -150,7 +150,7 @@ export default function Home() {
           playsInline
           preload="auto"
         >
-          <source src="/api/media/video" type="video/mp4" />
+          <source src="/video.mp4" type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-black/20" />
       </div>
