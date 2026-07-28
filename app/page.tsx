@@ -207,7 +207,9 @@ export default function Home() {
 
           <section className="space-y-3 border-t border-white/10 pt-4">
             <div className="space-y-1">
-              <h2 className="text-sm font-semibold text-white">Enviar pergunta</h2>
+              <h2 className="text-sm font-semibold text-white">
+                Enviar pergunta para o momento da roda de conversa
+              </h2>
               <p className="text-xs leading-5 text-white/70">
                 Deixa uma pergunta anónima para a roda de conversa — uma duvida, um
                 tema ou algo que gostasses de ouvir.
