@@ -1,0 +1,12 @@
+.next
+node_modules
+.env
+.env.local
+.env.production
+npm-debug.log*
+.DS_Store
+
+# Too large for GitHub/Vercel (>100MB). Keep local for dev only.
+*.mp4
+NOVADATA_STR MOTION.mp4
+STR.png
