@@ -211,14 +211,13 @@ export default function Home() {
                 Enviar pergunta para o momento da roda de conversa
               </h2>
               <p className="text-xs leading-5 text-white/70">
-                A roda de conversa é um momento sobre{" "}
+                Esta roda de conversa será um momento sobre{" "}
                 <span className="font-medium text-white/90">Fé racional</span>:
                 um espaço seguro para fazeres perguntas que talvez tenhas medo ou
-                receio de colocar — por parecerem demasiado céticas ou por
-                sentires que podem ofender a Deus.
+                receio de colocar.
               </p>
               <p className="text-xs leading-5 text-white/70">
-                A pergunta é anónima. Podes ser honesto/a.
+                A pergunta é anónima. Podes ser honesto/a!
               </p>
             </div>
 
