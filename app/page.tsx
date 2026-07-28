@@ -206,13 +206,19 @@ export default function Home() {
           </section>
 
           <section className="space-y-3 border-t border-white/10 pt-4">
-            <div className="space-y-1">
+            <div className="space-y-1.5">
               <h2 className="text-sm font-semibold text-white">
                 Enviar pergunta para o momento da roda de conversa
               </h2>
               <p className="text-xs leading-5 text-white/70">
-                Deixa uma pergunta anónima para a roda de conversa — uma duvida, um
-                tema ou algo que gostasses de ouvir.
+                A roda de conversa é um momento sobre{" "}
+                <span className="font-medium text-white/90">Fé racional</span>:
+                um espaço seguro para fazeres perguntas que talvez tenhas medo ou
+                receio de colocar — por parecerem demasiado céticas ou por
+                sentires que podem ofender a Deus.
+              </p>
+              <p className="text-xs leading-5 text-white/70">
+                A pergunta é anónima. Podes ser honesto/a.
               </p>
             </div>
 
@@ -225,7 +231,7 @@ export default function Home() {
               rows={4}
               maxLength={500}
               disabled={questionDone}
-              placeholder="Escreve aqui a tua pergunta para a roda de conversa..."
+              placeholder="Ex.: Como sei que não acredito em Deus apenas porque fui educado assim?"
               className="w-full rounded-2xl border border-white/10 bg-white/8 px-4 py-3 text-sm text-white outline-none placeholder:text-white/45 focus:border-amber-300 focus:ring-2 focus:ring-amber-300/20 disabled:cursor-not-allowed disabled:opacity-70"
             />
 
