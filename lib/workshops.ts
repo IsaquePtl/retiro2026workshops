@@ -6,4 +6,5 @@ export const WORKSHOP_TOPICS = [
   "Identidade de Género (LGBTQIA)",
   "Argumentos acerca da existência de Deus",
   "Religião e Ciência são compatíveis?",
+  "Corpo, Mente e Espírito (hábitos saudáveis, bem-estar físico, mental e espiritual, o corpo como templo)",
 ];
