@@ -175,16 +175,16 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="grid gap-2 sm:grid-cols-2">
+            <div className="grid gap-2">
               {WORKSHOP_TOPICS.map((topic) => {
-                const isChecked = selectedTopics.includes(topic);
+                const isChecked = selectedTopics.includes(topic.title);
                 const isDisabled =
                   voteDone ||
                   (!isChecked && selectedTopics.length >= MAX_SELECTED_TOPICS);
 
                 return (
                   <label
-                    key={topic}
+                    key={topic.title}
                     className={`flex cursor-pointer items-start gap-3 rounded-2xl border p-3 transition ${
                       isChecked
                         ? "border-amber-300 bg-amber-300/15"
@@ -195,10 +195,17 @@ export default function Home() {
                       type="checkbox"
                       checked={isChecked}
                       disabled={isDisabled}
-                      onChange={() => toggleTopic(topic)}
-                      className="mt-0.5 h-4 w-4 accent-amber-300"
+                      onChange={() => toggleTopic(topic.title)}
+                      className="mt-0.5 h-4 w-4 shrink-0 accent-amber-300"
                     />
-                    <span className="text-sm font-medium text-white">{topic}</span>
+                    <span className="min-w-0 space-y-1">
+                      <span className="block text-sm font-medium text-white">
+                        {topic.title}
+                      </span>
+                      <span className="block text-[11px] leading-4 text-white/50">
+                        {topic.description}
+                      </span>
+                    </span>
                   </label>
                 );
               })}
